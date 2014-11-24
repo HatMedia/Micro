@@ -1,8 +1,8 @@
 {
     "require": {
-        "silex/silex": "~1.2",
-		 "doctrine/dbal": "2.2.*",
+		"silex/silex": "~1.2",
+	 	"doctrine/dbal": "2.2.*",
 		"symfony/security": "~2.3",
-		 "mustache/mustache": "~2.5"
+		"twig/twig":"~1.0"
     }
 }

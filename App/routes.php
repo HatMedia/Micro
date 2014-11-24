@@ -10,8 +10,13 @@ $app->get('/dashboard/login', function (Silex\Application $app){
     return $output;
 });
 
-$app->get('/{page}', function (Silex\Application $app){
-	$post = $app['db']->fetchAssoc('SELECT * FROM pages');
-	return($post['name']);
+
+// todo redirect this to default homepage function
+$app->get('/',function() use($app){return false;});
+
+
+// todo split up controllers
+$app->get('/{slug}', function($slug) use($app, $pages) {
+	return(print_r($pages->load($slug)));
 });
 

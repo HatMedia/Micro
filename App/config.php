@@ -8,12 +8,16 @@
 
 
 define('ROOT',dirname(__DIR__));
+
+
 $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
 
 // set debug information
 $app['debug'] = true;
+
+
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array (
@@ -45,6 +49,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),array(
 	)
 );
 
-
+//[TODO] Make this OOP
+require_once('models/pages.php');
+$pages = new Models\pagesModel($app);
 
 require_once('routes.php');
