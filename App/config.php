@@ -15,6 +15,17 @@ $app = new Silex\Application();
 // set debug information
 $app['debug'] = true;
 
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options' => array (
+            'driver'    => 'pdo_mysql',
+            'host'      => '127.0.0.1',
+            'dbname'    => 'micro',
+            'user'      => 'def',
+            'password'  => 'def',
+            'charset'   => 'utf8',
+        )
+    )
+);
 
 $app->register(new Silex\Provider\SecurityServiceProvider(),array(
 	'security.firewalls'=>array(
