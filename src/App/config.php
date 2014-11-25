@@ -53,4 +53,9 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),array(
 require_once('models/pages.php');
 $pages = new Models\pagesModel($app);
 
+//
+$loader = new Twig_Loader_Filesystem(ROOT.'/themes');
+$twig = new Twig_Environment($loader, array(
+    'cache' => ROOT.'/App/cache',
+));
 require_once('routes.php');

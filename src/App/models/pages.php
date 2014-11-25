@@ -5,6 +5,7 @@ namespace Models;
 class pagesModel{
 
 	public static $app;
+
 	public function __construct($app){
 
 		// solve dep inject., move app object to static var
@@ -23,7 +24,6 @@ class pagesModel{
 		$stmt->execute();
 
 		$pages = $stmt->fetch();
-
 		return($pages);
 
 	}

@@ -16,7 +16,9 @@ $app->get('/',function() use($app){return false;});
 
 
 // todo split up controllers
-$app->get('/{slug}', function($slug) use($app, $pages) {
-	return(print_r($pages->load($slug)));
+$app->get('/{slug}', function($slug) use($app, $pages, $twig) {
+	$page = $pages->load($slug);
+	return print $twig->render('default'.'/'.$page['template'].'.html', array('the' => 'variables', 'go' => 'here'));
+
 });
 
