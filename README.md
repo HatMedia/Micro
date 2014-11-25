@@ -1,6 +1,4 @@
-<p align="center">
 ![Micro Logo](logo.png)
-</p>
 
 #### Micro CMS
 Serve the web.
