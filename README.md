@@ -1,5 +1,5 @@
 <p align="center">
-![Micro logo](logo.png)
+![Micro logo](logo.png "micro logo")
 </p>
 
 #### Micro CMS
