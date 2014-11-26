@@ -21,13 +21,10 @@ $app['config'] = array(
 
 	'template' => array(
 		'extension' => 'html',
-		'cache' => ROOT.'/App/cache',
 		'folder' => ROOT.'/themes'
 	)
 
-
 );
-
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array (
@@ -65,7 +62,5 @@ $pages = new Models\pagesModel($app);
 
 //
 $loader = new Twig_Loader_Filesystem($app['config']['template']['folder']);
-$twig = new Twig_Environment($loader, array(
-    'cache' => $app['config']['template']['cache'],
-));
+$twig = new Twig_Environment($loader, array());
 require_once('routes.php');

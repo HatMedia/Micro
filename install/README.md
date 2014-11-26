@@ -3,9 +3,6 @@ Since i'm traveling a lot between work stations, i wanted an easy method to inst
 
 Just run the index.php (you may open it on your server or run in via console via  `./install destination` ) This will install it with default settings (once you have them set up)
 
-	username: admin
-	password: micro_admin
-
 
 
 

@@ -5,6 +5,7 @@ namespace Models;
 class pagesModel{
 
 	public static $app;
+	public $config = array();
 
 	public function __construct($app){
 
@@ -27,9 +28,6 @@ class pagesModel{
 		return($pages);
 
 	}
-
-
-
 
 
 

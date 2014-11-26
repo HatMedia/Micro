@@ -3,6 +3,6 @@
 		"silex/silex": "~1.2",
 	 	"doctrine/dbal": "2.2.*",
 		"symfony/security": "~2.3",
-		"twig/twig":"~1.0"
+		"twig/twig": "1.16.*@dev"
     }
 }
