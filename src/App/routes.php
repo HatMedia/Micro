@@ -18,7 +18,13 @@ $app->get('/',function() use($app){return false;});
 // todo split up controllers
 $app->get('/{slug}', function($slug) use($app, $pages, $twig) {
 	$page = $pages->load($slug);
-	return print $twig->render('default'.'/'.$page['template'].'.html', array('the' => 'variables', 'go' => 'here'));
+	$template = 'default'.'/'.$page['template'].'.'.$app['config']['template']['extension'];
+	if(file_exists(ROOT.'/themes/'.$template)):
+		// load up template file before rendering ...
+			 //[ ins line here ]
 
+		return $twig->render($template, array());
+	endif;
+	return 'Err no tmpl found';
 });
 

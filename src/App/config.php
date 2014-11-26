@@ -14,9 +14,19 @@ $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
 
-// set debug information
+//[todo:] envoirment check... (check if you are developing in the dev branch or the master branch)
 $app['debug'] = true;
 
+$app['config'] = array(
+
+	'template' => array(
+		'extension' => 'html',
+		'cache' => ROOT.'/App/cache',
+		'folder' => ROOT.'/themes'
+	)
+
+
+);
 
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
@@ -54,8 +64,8 @@ require_once('models/pages.php');
 $pages = new Models\pagesModel($app);
 
 //
-$loader = new Twig_Loader_Filesystem(ROOT.'/themes');
+$loader = new Twig_Loader_Filesystem($app['config']['template']['folder']);
 $twig = new Twig_Environment($loader, array(
-    'cache' => ROOT.'/App/cache',
+    'cache' => $app['config']['template']['cache'],
 ));
 require_once('routes.php');
