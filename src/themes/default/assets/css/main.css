@@ -35,7 +35,7 @@ a{
 	display:inline-block;
 }
 #contentheader ul li a{ color:white; display:inline-block; padding:6px 22px; border:1px solid white; margin-right:10px; text-decoration:none;}
-
+#contentheader ul li a:hover{color:#0e3652; background:white;}
 #content{
 	min-height:50px;
 	width:94%;
