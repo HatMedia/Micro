@@ -14,4 +14,10 @@ Micro is build on Silex (the micro version of Symphony) And is fully extendable.
 
 ##### Installing
 
-[install instructions here...]
+Setting up your settings:
+
+	php micro.php settings
+
+Create a backup from your current database:
+
+	php micro.php backup
