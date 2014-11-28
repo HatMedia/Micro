@@ -56,11 +56,18 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),array(
 	)
 );
 
-//[TODO] Make this OOP
+
+
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => $app['config']['template']['folder'],
+    'twig.options' => array('debug' => true)
+));
+
+
+//[TODO] transfer this to $app
 require_once('models/pages.php');
 $pages = new Models\pagesModel($app);
 
-//
-$loader = new Twig_Loader_Filesystem($app['config']['template']['folder']);
-$twig = new Twig_Environment($loader, array());
+
+
 require_once('routes.php');

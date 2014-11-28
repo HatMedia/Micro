@@ -16,7 +16,7 @@ $app->get('/',function() use($app){return false;});
 
 
 // todo split up controllers
-$app->get('/{slug}', function($slug) use($app, $pages, $twig) {
+$app->get('/{slug}', function($slug) use($app, $pages) {
 	$page = $pages->load($slug);
 	$tpl = 'default'.'/'.$page['template'].'.'.$app['config']['template']['extension'];
 
@@ -25,8 +25,10 @@ $app->get('/{slug}', function($slug) use($app, $pages, $twig) {
 	$config['app'] = $app;
 	$config['page'] = $pages->config;
 	$config['path'] = 'http://localhost/micro/Micro/src/themes/default';
+	$config['posts'] = $pages->getPagePosts($page['id']);
 
-	$template = $twig->loadTemplate($tpl);
+
+	$template = $app['twig']->loadTemplate($tpl);
 	return $template->render($config);
 
 });

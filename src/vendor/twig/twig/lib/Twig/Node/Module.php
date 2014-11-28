@@ -77,18 +77,17 @@ class Twig_Node_Module extends Twig_Node
 
     protected function compileGetParent(Twig_Compiler $compiler)
     {
-        if (null === $parent = $this->getNode('parent')) {
+        if (null === $this->getNode('parent')) {
             return;
         }
 
         $compiler
             ->write("protected function doGetParent(array \$context)\n", "{\n")
             ->indent()
-            ->addDebugInfo($parent)
             ->write("return ")
         ;
 
-        if ($parent instanceof Twig_Node_Expression_Constant) {
+        if ($this->getNode('parent') instanceof Twig_Node_Expression_Constant) {
             $compiler->subcompile($this->getNode('parent'));
         } else {
             $compiler
@@ -109,9 +108,8 @@ class Twig_Node_Module extends Twig_Node
     {
         $compiler->subcompile($this->getNode('body'));
 
-        if (null !== $parent = $this->getNode('parent')) {
-            $compiler->addDebugInfo($parent);
-            if ($parent instanceof Twig_Node_Expression_Constant) {
+        if (null !== $this->getNode('parent')) {
+            if ($this->getNode('parent') instanceof Twig_Node_Expression_Constant) {
                 $compiler->write("\$this->parent");
             } else {
                 $compiler->write("\$this->getParent(\$context)");
@@ -142,24 +140,13 @@ class Twig_Node_Module extends Twig_Node
         ;
 
         // parent
-        if (null === $parent = $this->getNode('parent')) {
+        if (null === $this->getNode('parent')) {
             $compiler->write("\$this->parent = false;\n\n");
-        } elseif ($parent instanceof Twig_Node_Expression_Constant) {
+        } elseif ($this->getNode('parent') instanceof Twig_Node_Expression_Constant) {
             $compiler
-                ->addDebugInfo($parent)
-                ->write("try {\n")
-                ->indent()
                 ->write("\$this->parent = \$this->env->loadTemplate(")
                 ->subcompile($this->getNode('parent'))
-                ->raw(");\n")
-                ->outdent()
-                ->write("} catch (Twig_Error_Loader \$e) {\n")
-                ->indent()
-                ->write("\$e->setTemplateFile(\$this->getTemplateName());\n")
-                ->write(sprintf("\$e->setTemplateLine(%d);\n\n", $parent->getLine()))
-                ->write("throw \$e;\n")
-                ->outdent()
-                ->write("}\n\n")
+                ->raw(");\n\n")
             ;
         }
 
@@ -262,7 +249,7 @@ class Twig_Node_Module extends Twig_Node
             ->outdent()
             ->write(");\n")
             ->outdent()
-            ->write("}\n\n")
+            ->write("}\n\n");
         ;
     }
 

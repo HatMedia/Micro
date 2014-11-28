@@ -11,6 +11,9 @@
 
 class Twig_Tests_Node_SandboxedModuleTest extends Twig_Test_NodeTestCase
 {
+    /**
+     * @covers Twig_Node_SandboxedModule::__construct
+     */
     public function testConstructor()
     {
         $body = new Twig_Node_Text('foo', 1);
@@ -27,6 +30,17 @@ class Twig_Tests_Node_SandboxedModuleTest extends Twig_Test_NodeTestCase
         $this->assertEquals($macros, $node->getNode('macros'));
         $this->assertEquals($parent, $node->getNode('parent'));
         $this->assertEquals($filename, $node->getAttribute('filename'));
+    }
+
+    /**
+     * @covers Twig_Node_SandboxedModule::compile
+     * @covers Twig_Node_SandboxedModule::compileDisplayBody
+     * @covers Twig_Node_SandboxedModule::compileDisplayFooter
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null)
+    {
+        parent::testCompile($node, $source, $environment);
     }
 
     public function getTests()
@@ -128,15 +142,7 @@ class __TwigTemplate_a2bfbf7dd6ab85666684fe9297f69363a3fc2046d90f22a317d380c1863
     {
         parent::__construct(\$env);
 
-        // line 1
-        try {
-            \$this->parent = \$this->env->loadTemplate("layout.twig");
-        } catch (Twig_Error_Loader \$e) {
-            \$e->setTemplateFile(\$this->getTemplateName());
-            \$e->setTemplateLine(1);
-
-            throw \$e;
-        }
+        \$this->parent = \$this->env->loadTemplate("layout.twig");
 
         \$this->blocks = array(
         );
@@ -192,7 +198,7 @@ class __TwigTemplate_a2bfbf7dd6ab85666684fe9297f69363a3fc2046d90f22a317d380c1863
 
     public function getDebugInfo()
     {
-        return array (  11 => 1,);
+        return array ();
     }
 }
 EOF

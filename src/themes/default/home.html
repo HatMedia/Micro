@@ -8,21 +8,22 @@
 	</head>
 	<body>
 		<div id="container">
-			<header>
+			<header id="contentheader">
 
 				<img src="{{ path }}/assets/images/logo.png" />
 
 			</header>
 			<section id="content">
+			{% for post in posts %}
 				<article>
-					<head>
-						<h3>Message Title</h3>
+					<header>
+						<h3>{{ post.title }}</h3>
 						<span class="time">{{ "now"|date('d/m/Y H:i', timezone="Europe/Paris") }}</span>
-					</head>
-					<section>Content</section>
+					</header>
+					<section>{{ post.content }}</section>
 					<footer>Footer</footer>
 				</article>
-
+			{% endfor %}
 			</section>
 			<footer>
 

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "670b2f7cd0e66234834bfc7c98e00321",
+    "hash": "22ac5402d2ef3b1e6ec98fe4b3a31996",
     "packages": [
         {
             "name": "doctrine/common",
@@ -676,17 +676,69 @@
             "time": "2014-11-20 13:22:25"
         },
         {
-            "name": "twig/twig",
-            "version": "dev-master",
+            "name": "twig/extensions",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "efed4fa3b10f8ad6f856d817f4e4a6d9ac527915"
+                "url": "https://github.com/twigphp/Twig-extensions.git",
+                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/efed4fa3b10f8ad6f856d817f4e4a6d9ac527915",
-                "reference": "efed4fa3b10f8ad6f856d817f4e4a6d9ac527915",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
+                "reference": "8cf4b9fe04077bd54fc73f4fde83347040c3b8cd",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "~1.12"
+            },
+            "require-dev": {
+                "symfony/translation": "~2.3"
+            },
+            "suggest": {
+                "symfony/translation": "Allow the time_diff output to be translated"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_Extensions_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Common additional features for Twig that do not directly belong in core",
+            "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
+            "keywords": [
+                "i18n",
+                "text"
+            ],
+            "time": "2014-10-30 14:30:03"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.16.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/42f758d9fe2146d1f0470604fc05ee43580873fc",
+                "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc",
                 "shasum": ""
             },
             "require": {
@@ -721,7 +773,7 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
                     "role": "Contributors"
                 }
             ],
@@ -730,15 +782,13 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-11-20 10:35:14"
+            "time": "2014-10-17 12:53:44"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "twig/twig": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "platform": [],
     "platform-dev": []

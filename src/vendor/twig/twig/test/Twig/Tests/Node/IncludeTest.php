@@ -11,6 +11,9 @@
 
 class Twig_Tests_Node_IncludeTest extends Twig_Test_NodeTestCase
 {
+    /**
+     * @covers Twig_Node_Include::__construct
+     */
     public function testConstructor()
     {
         $expr = new Twig_Node_Expression_Constant('foo.twig', 1);
@@ -24,6 +27,15 @@ class Twig_Tests_Node_IncludeTest extends Twig_Test_NodeTestCase
         $node = new Twig_Node_Include($expr, $vars, true, false, 1);
         $this->assertEquals($vars, $node->getNode('variables'));
         $this->assertTrue($node->getAttribute('only'));
+    }
+
+    /**
+     * @covers Twig_Node_Include::compile
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null)
+    {
+        parent::testCompile($node, $source, $environment);
     }
 
     public function getTests()

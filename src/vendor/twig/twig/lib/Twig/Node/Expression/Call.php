@@ -138,10 +138,9 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
         }
 
         $arguments = array();
-        $names = array();
         $pos = 0;
         foreach ($definition as $param) {
-            $names[] = $name = $this->normalizeName($param->name);
+            $name = $this->normalizeName($param->name);
 
             if (array_key_exists($name, $parameters)) {
                 if (array_key_exists($pos, $parameters)) {
@@ -164,10 +163,7 @@ abstract class Twig_Node_Expression_Call extends Twig_Node_Expression
         }
 
         if (!empty($parameters)) {
-            throw new Twig_Error_Syntax(sprintf(
-                'Unknown argument%s "%s" for %s "%s(%s)".',
-                count($parameters) > 1 ? 's' : '', implode('", "', array_keys($parameters)), $this->getAttribute('type'), $this->getAttribute('name'), implode(', ', $names)
-            ));
+            throw new Twig_Error_Syntax(sprintf('Unknown argument%s "%s" for %s "%s".', count($parameters) > 1 ? 's' : '', implode('", "', array_keys($parameters)), $this->getAttribute('type'), $this->getAttribute('name')));
         }
 
         return $arguments;

@@ -11,6 +11,9 @@
 
 class Twig_Tests_Node_AutoEscapeTest extends Twig_Test_NodeTestCase
 {
+    /**
+     * @covers Twig_Node_AutoEscape::__construct
+     */
     public function testConstructor()
     {
         $body = new Twig_Node(array(new Twig_Node_Text('foo', 1)));
@@ -18,6 +21,15 @@ class Twig_Tests_Node_AutoEscapeTest extends Twig_Test_NodeTestCase
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertTrue($node->getAttribute('value'));
+    }
+
+    /**
+     * @covers Twig_Node_AutoEscape::compile
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null)
+    {
+        parent::testCompile($node, $source, $environment);
     }
 
     public function getTests()

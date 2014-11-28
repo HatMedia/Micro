@@ -4,7 +4,7 @@ namespace Models;
 
 class pagesModel{
 
-	public static $app;
+	public $app;
 	public $config = array();
 
 	public function __construct($app){
@@ -26,6 +26,25 @@ class pagesModel{
 
 		$pages = $stmt->fetch();
 		return($pages);
+
+	}
+
+
+	/*
+
+		Get list of all posts on a page
+
+		@param int $pid Page id to get list from
+		@return array of posts
+
+
+	*/
+	public function getPagePosts($pid){
+		$sql = 'SELECT * FROM posts WHERE page_id = ?';
+		$statement = $this->app['db']->prepare($sql);
+		$statement->bindValue(1,$pid);
+		$statement->execute();
+		return $statement->fetchAll();
 
 	}
 

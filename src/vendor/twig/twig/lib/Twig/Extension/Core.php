@@ -708,11 +708,7 @@ function twig_slice(Twig_Environment $env, $item, $start, $length = null, $prese
         }
 
         if ($start >= 0 && $length >= 0) {
-            try {
-                return iterator_to_array(new LimitIterator($item, $start, $length === null ? -1 : $length), $preserveKeys);
-            } catch (OutOfBoundsException $exception) {
-                return array();
-            }
+            return iterator_to_array(new LimitIterator($item, $start, $length === null ? -1 : $length), $preserveKeys);
         }
 
         $item = iterator_to_array($item, $preserveKeys);
@@ -934,11 +930,15 @@ function twig_sort_filter($array)
 function twig_in_filter($value, $compare)
 {
     if (is_array($compare)) {
-        return in_array($value, $compare, is_object($value) || is_resource($value));
-    } elseif (is_string($compare) && (is_string($value) || is_int($value) || is_float($value))) {
-        return '' === $value || false !== strpos($compare, (string) $value);
+        return in_array($value, $compare, is_object($value));
+    } elseif (is_string($compare)) {
+        if (!strlen($value)) {
+            return empty($compare);
+        }
+
+        return false !== strpos($compare, (string) $value);
     } elseif ($compare instanceof Traversable) {
-        return in_array($value, iterator_to_array($compare, false), is_object($value) || is_resource($value));
+        return in_array($value, iterator_to_array($compare, false), is_object($value));
     }
 
     return false;

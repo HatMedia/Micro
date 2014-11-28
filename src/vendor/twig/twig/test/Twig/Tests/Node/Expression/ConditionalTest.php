@@ -11,6 +11,9 @@
 
 class Twig_Tests_Node_Expression_ConditionalTest extends Twig_Test_NodeTestCase
 {
+    /**
+     * @covers Twig_Node_Expression_Conditional::__construct
+     */
     public function testConstructor()
     {
         $expr1 = new Twig_Node_Expression_Constant(1, 1);
@@ -21,6 +24,15 @@ class Twig_Tests_Node_Expression_ConditionalTest extends Twig_Test_NodeTestCase
         $this->assertEquals($expr1, $node->getNode('expr1'));
         $this->assertEquals($expr2, $node->getNode('expr2'));
         $this->assertEquals($expr3, $node->getNode('expr3'));
+    }
+
+    /**
+     * @covers Twig_Node_Expression_Conditional::compile
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null)
+    {
+        parent::testCompile($node, $source, $environment);
     }
 
     public function getTests()
