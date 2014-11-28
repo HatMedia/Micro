@@ -40,12 +40,31 @@ class pagesModel{
 
 	*/
 	public function getPagePosts($pid){
-		$sql = 'SELECT * FROM posts WHERE page_id = ?';
+		$sql = 'SELECT * FROM posts WHERE page_id = ? ORDER BY id DESC';
 		$statement = $this->app['db']->prepare($sql);
 		$statement->bindValue(1,$pid);
 		$statement->execute();
 		return $statement->fetchAll();
 
+	}
+
+
+	public function getPageList($pid){
+		$sql = 'SELECT * FROM pages';
+		$stmt = $this->app['db']->prepare($sql);
+		$stmt->execute();
+
+		$pages = $stmt->fetchAll();
+		$i= 0;
+		foreach($pages as $pag):
+			if($pag['id'] == $pid):
+				$pages[$i]['status'] = 'current';
+			else:
+				$pages[$i]['status'] = false;
+			endif;
+		$i++;
+		endforeach;
+		return($pages);
 	}
 
 

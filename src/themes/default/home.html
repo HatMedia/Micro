@@ -11,7 +11,11 @@
 			<header id="contentheader">
 
 				<img src="{{ path }}/assets/images/logo.png" />
-
+				<ul>
+				{% for page in pageList %}
+					<li><a href="{{ url }}/{{ page.slug }}">{{ page.name }}</a></li>
+				{% endfor %}
+				</ul>
 			</header>
 			<section id="content">
 			{% for post in posts %}
@@ -25,8 +29,8 @@
 				</article>
 			{% endfor %}
 			</section>
-			<footer>
-
+			<footer id="contentfooter">
+				<a target="_blank" href="http://github.com/hatmedia/micro">Micro by HatMedia</a>
 			</footer>
 
 		</div>
