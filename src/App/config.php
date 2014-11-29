@@ -14,6 +14,9 @@ $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
 
+$app->register(new Silex\Provider\SessionServiceProvider());
+use Symfony\Component\HttpFoundation\Request;
+
 //[todo:] envoirment check... (check if you are developing in the dev branch or the master branch)
 $app['debug'] = true;
 
@@ -38,23 +41,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     )
 );
 
-$app->register(new Silex\Provider\SecurityServiceProvider(),array(
-	'security.firewalls'=>array(
-		 'secure' => array(
-				'anonymous' => false,
-				'pattern' => '^/dashboard$',
-				'form' => array('login_path' => '/dashboard/login', 'check_path' => '/dashboard/login_check'),
-				'logout' => array('logout_path' => '/dashboard/logout')
-			),
-		),
-		'security.access_rules' => array(
-			array('^/dashboard$', 'ROLE_ADMIN')
-		),
-		'security.role_hierarchy'=> array(
-			'ROLE_ADMIN' => array('ROLE_ADMIN')
-		),
-	)
-);
 
 
 
@@ -62,9 +48,36 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => $app['config']['template']['folder'],
     'twig.options' => array('debug' => true)
 ));
+$function = new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
+        return $app['security']->isGranted($role,$object);
+    });
+    $app['twig']->addFunction($function);
 
 
-//[TODO] transfer this to $app
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app['twig']->addFunction(new \Twig_SimpleFunction('path', function($url) use ($app) {
+    return $app['url_generator']->generate($url);
+}));
+
+include('User/UserProvider.php');
+$app->register(new Silex\Provider\SecurityServiceProvider(), array());
+
+$app['security.firewalls'] = array(
+    'secured' => array(
+        'pattern' => '^/admin',
+        'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+        'logout' => array('logout_path' => '/admin/logout'),
+         'users' => $app->share(function() use ($app) {
+				return new App\User\UserProvider($app['db']);
+			}),
+    ),
+);
+
+$app['security.access_rules'] = array(
+    array('^/admin', 'ROLE_ADMIN'),
+);
+
+
 require_once('models/pages.php');
 $pages = new Models\pagesModel($app);
 

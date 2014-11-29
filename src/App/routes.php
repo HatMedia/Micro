@@ -1,15 +1,19 @@
 <?php
+use Symfony\Component\HttpFoundation\Request;
 
-$app->get('/dashboard', function (Silex\Application $app){
-	$output = 'dboard';
-    return $output;
+$app->get('/admin', function(Request $request) use ($app) {
+
+    	return 'template';
+
+
 });
 
-$app->get('/dashboard/login', function (Silex\Application $app){
-	$output = 'Login';
-    return $output;
+$app->get('/login', function(Request $request) use ($app) {
+   return $app['twig']->render('system/views/login.html', array(
+        'error' => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
 });
-
 
 // todo redirect this to default homepage function
 $app->get('/',function() use($app){return false;});
