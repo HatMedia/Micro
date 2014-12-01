@@ -10,11 +10,11 @@ php:
 
 # Commands to be run before your environment runs.
 before_script:
-  - composer self-update
-  - composer install
+  - sudo composer update
+  - sudo composer install
 
 # Commands you want to run that will verify your build.
-script: install/test.sh
+script: sudo php install micro.php backup
 
 # allow_failures: Allow this build to fail under the specified environments.
 # fast_finish: If your build fails do not continue trying to build, just stop.
