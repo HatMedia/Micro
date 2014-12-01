@@ -1,6 +1,21 @@
-<form action="{{ path('admin_login_check') }}" method="post">
-    {{ error }}
-    <input type="text" name="_username" value="{{ last_username }}" />
-    <input type="password" name="_password" value="" />
-    <input type="submit" />
-</form>
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Micro default test page ... ;'(</title>
+		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="{{ path }}/assets/css/login.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div>
+			<img src="{{ path }}/assets/images/logo.png">
+		</div>
+		<form action="{{ path('admin_login_check') }}" method="post">
+			{{ error }}
+			<input type="text" placeholder="Username" name="_username" value="{{ last_username }}" />
+			<input type="password" placeholder="password" name="_password" value="" />
+			<input type="submit" value="login"/>
+		</form>
+	</body>
+</html>
+

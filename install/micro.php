@@ -1,7 +1,5 @@
 <?php
-
 $settings = json_decode(file_get_contents('assets/settings.json'));
-
 if($argv[1] == 'settings'):
 	echo "setting up database, what are your db settings? \n";
 
@@ -9,29 +7,29 @@ if($argv[1] == 'settings'):
 	$handle = fopen ("php://stdin","r");
 	$user = fgets($handle);
 
-echo 'DB password:';
+	echo 'DB password:';
 	$handle = fopen ("php://stdin","r");
 	$password = fgets($handle);
 
-echo 'DB host:';
+	echo 'DB host:';
 	$handle = fopen ("php://stdin","r");
 	$host = fgets($handle);
 
-echo 'DB Database:';
+	echo 'DB Database:';
 	$handle = fopen ("php://stdin","r");
 	$database = fgets($handle);
 
-$settings = array(
-	'db' => array(
-		'user' => str_replace("\n","",$user),
-		'pass' => str_replace("\n","",$password),
-		'host' => str_replace("\n","",$host),
-		'database' => str_replace("\n","",$database)
-	)
-);
+	$settings = array(
+		'db' => array(
+			'user' => str_replace("\n","",$user),
+			'pass' => str_replace("\n","",$password),
+			'host' => str_replace("\n","",$host),
+			'database' => str_replace("\n","",$database)
+		)
+	);
 
-file_put_contents('assets/settings.json',json_encode($settings));
-echo 'Setting file has been udpated .. assets/settings.json';
+	file_put_contents('assets/settings.json',json_encode($settings));
+	echo 'Setting file has been udpated .. assets/settings.json';
 endif;
 
 

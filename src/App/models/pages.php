@@ -29,6 +29,18 @@ class pagesModel{
 
 	}
 
+	public function getDefault(){
+
+		$sql = 'SELECT * FROM pages LIMIT 0,1';
+		$stmt = $this->app['db']->prepare($sql);
+		$stmt->execute();
+
+		$pages = $stmt->fetch();
+		return($pages);
+
+	}
+
+
 
 	/*
 
