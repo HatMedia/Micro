@@ -1,5 +1,7 @@
 ![Micro Logo](logo.png)
 
+[![Build Status](https://travis-ci.org/HatMedia/Micro.svg?branch=master)](https://travis-ci.org/HatMedia/Micro)
+
 #### Micro CMS
 Serve the web.
 
