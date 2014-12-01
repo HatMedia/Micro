@@ -2,7 +2,7 @@
 namespace Models;
 
 
-class pagesModel{
+class PagesModel{
 
 	public $app;
 	public $config = array();

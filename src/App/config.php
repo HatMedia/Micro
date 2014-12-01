@@ -14,7 +14,6 @@ $loader = require ROOT."/vendor/autoload.php";
 $app = new Silex\Application();
 
 $app->register(new Silex\Provider\SessionServiceProvider());
-use Symfony\Component\HttpFoundation\Request;
 
 $app['debug'] = true;
 
@@ -79,6 +78,6 @@ $app['security.access_rules'] = array(
 );
 
 require_once('models/pages.php');
-$pages = new Models\pagesModel($app);
+$pages = new Models\PagesModel($app);
 
 require_once('routes.php');
