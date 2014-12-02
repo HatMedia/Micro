@@ -1,7 +1,7 @@
 ![Micro Logo](logo.png)
 
 [![Build Status](https://travis-ci.org/HatMedia/Micro.svg?branch=master)](https://travis-ci.org/HatMedia/Micro)
-
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a/mini.png)](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a)
 #### Micro CMS
 Serve the web.
 
