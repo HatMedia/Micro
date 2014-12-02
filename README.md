@@ -23,3 +23,5 @@ Setting up your settings:
 Create a backup from your current database:
 
 	php micro.php backup
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a/big.png)](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a)
