@@ -1,1 +1,80 @@
-users.html
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home page</title>
+		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="{{ path }}/assets/css/users.css" rel="stylesheet" type="text/css" />
+
+	</head>
+	<body>
+		<header>
+			<a class="logo" href="#">Micro</a>
+			<h1>Gebruikers</h1>
+		</header>
+		<section class="header">
+			<div class="stuck-top">
+				<nav>
+					<ul>
+						<li><a  href="#"><i class="fa fa-home"></i></a></li>
+						<li><a href="#"><i class="fa fa-file"></i></a></li>
+						<li><a class="active" href="#"><i class="fa fa-users"></i></a></li>
+						<li><a href="#"><i class="fa fa-cog"></i></a></li>
+						<li><a href="#"><i class="fa fa-anchor"></i></a></li>
+
+					</ul>
+				</nav>
+				<div class="divider"></div>
+			</div>
+		</section>
+		<section class="main-content">
+			<div class="inner-nav">
+				<ul>
+					<li><a class="active" href="#">Alle</a></li>
+					<li><a href="#">Eigenaren</a></li>
+					<li><a href="#">Redactie</a></li>
+					<li><a href="#">Leden</a></li>
+				</ul>
+			</div>
+			<div class="inner-content">
+				<div class="heading">
+					<h4>24 Gebruikers gevonden</h4>
+					<div class="buttons">
+						<a href="#"><i class="fa fa-pencil"></i></a>
+						<a href="#"><i class="fa fa-trash"></i></a>
+						<a href="#"><i class="fa fa-plus"></i></a>
+					</div>
+				</div>
+				<div class="contents">
+					<table>
+						<thead>
+							<tr>
+							  <th><input type="checkbox"></th>
+							  <th align="left">Gebruikersnaam</th>
+							  <th align="left">Classe</th>
+							  <th align="center">Gemaakt</th>
+							</tr>
+						  </thead>
+						  <tbody>
+
+							  {% for letter in 'a'..'x' %}
+							<tr>
+							  <td><input type="checkbox"></td>
+							  <td>{{ letter }}mattivandeweem</td>
+							  <td>admin</td>
+							  <td align="center">6 minuten geleden <i class="fa fa-clock-o"></td>
+							</tr>
+							{% endfor %}
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+	</body>
+</html>

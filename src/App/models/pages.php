@@ -2,12 +2,12 @@
 namespace Models;
 
 
-class PagesModel{
+class Pages{
 
 	public $app;
 	public $config = array();
 
-	public function __construct($app){
+	public function __construct($app = true){
 
 		// solve dep inject., move app object to static var
 		$this->app = $app;

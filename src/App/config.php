@@ -2,6 +2,8 @@
 /*
  * Part of Micro
  *
+ * For licensing read the license file provided..
+ *
  * @author Matti van de Weem<mvdweem@gmail.com>
  *
  */
@@ -48,12 +50,13 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $function = new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
         return $app['security']->isGranted($role,$object);
-    });
+});
 
 $app['twig']->addFunction($function);
 
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
 $app['twig']->addFunction(new \Twig_SimpleFunction('path', function($url) use ($app) {
     return $app['url_generator']->generate($url);
 }));
@@ -77,7 +80,13 @@ $app['security.access_rules'] = array(
     array('^/'.$app['config']['system']['panel'].'', 'ROLE_ADMIN'),
 );
 
-require_once('models/pages.php');
-$pages = new Models\PagesModel($app);
+
+require_once('Models/pages.php');
+$pages = new Models\Pages($app);
+
+require_once('Models/pages.php');
+$app['users'] = new Models\Pages($app);
+
+
 
 require_once('routes.php');

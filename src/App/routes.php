@@ -18,5 +18,5 @@ $app->get('/login', function(Request $request) use ($app) {
     ));
 });
 
-$app->get('/', $render['default']['main'](false));
+$app->get('/', $render['default']['main'](false)); // should redir this instead of algo this.. [todo]
 $app->get('/{slug}', $render['default']['main']);
