@@ -14,8 +14,11 @@ define('ROOT',dirname(__DIR__));
 $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
+use Herrera\Silex\ActiveLinkServiceProvider;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
+
+
 
 $app['debug'] = true;
 
@@ -61,11 +64,29 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.options' => array('debug' => true)
 ));
 
-$function = new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
+
+$app['twig']->addFunction(
+	new Twig_SimpleFunction(
+	'active',
+		function ($name) use ($app) {
+			if ($name === $app['request']->get('_route')) {
+				if (isset($app['active_link.snippet'])) {
+					return $app['active_link.snippet'];
+				} else {
+					return ' class="active"';
+				}
+			}
+			return '';
+		},
+			array('is_safe' => array('html'))
+	)
+);
+
+$isGranted = new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
         return $app['security']->isGranted($role,$object);
 });
 
-$app['twig']->addFunction($function);
+$app['twig']->addFunction($isGranted);
 
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

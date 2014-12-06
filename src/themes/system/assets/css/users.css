@@ -167,6 +167,7 @@ nav ul li a.active, nav ul li a:hover{
 	float:left;
 	border-left:1px solid white;
 	border-right:1px solid #dbdce2;
+	font-size:16px;
 }
 
 .inner-content .contents{

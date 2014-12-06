@@ -16,6 +16,8 @@ Micro is build on Silex (the micro version of Symphony) And is fully extendable.
 
 ##### Installing
 
+There will be a simple installer soon( when the CMS is usable ).
+
 Setting up your settings:
 
 	php micro.php settings
@@ -25,3 +27,10 @@ Create a backup from your current database:
 	php micro.php backup
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a/big.png)](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a)
+
+##### Templating
+
+For templates we are using Twig, go out there and read the docs.
+All needed vars are parsed into the template so you can use them there.
+
+Our advise is simply start of with the default themes, modify them the way you like.
