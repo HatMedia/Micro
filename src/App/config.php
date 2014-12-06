@@ -51,7 +51,7 @@ use Silex\Provider\FormServiceProvider;
 $app->register(new FormServiceProvider());
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'translator.domains' => array(),
@@ -69,32 +69,25 @@ $app['twig']->addFunction(
 	new Twig_SimpleFunction(
 	'active',
 		function ($name) use ($app) {
-			if ($name === $app['request']->get('_route')) {
+			if (strpos($app['request']->getUri(),$name) !== false) {
 				if (isset($app['active_link.snippet'])) {
 					return $app['active_link.snippet'];
 				} else {
-					return ' class="active"';
+					return true;
 				}
 			}
-			return '';
+			return false;
 		},
 			array('is_safe' => array('html'))
 	)
 );
 
-$isGranted = new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
-        return $app['security']->isGranted($role,$object);
-});
 
-$app['twig']->addFunction($isGranted);
-
-
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-
-
-$app['twig']->addFunction(new \Twig_SimpleFunction('path', function($url) use ($app) {
-    return $app['url_generator']->generate($url);
+$app['twig']->addFunction(new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
+	return $app['security']->isGranted($role,$object);
 }));
+
+
 
 $app['twig']->addFunction(new \Twig_SimpleFunction('timeAgo', function($time) use ($app) {
    	$timeAgo = new TimeAgo();

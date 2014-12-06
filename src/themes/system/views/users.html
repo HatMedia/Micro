@@ -4,10 +4,10 @@
 {% endblock %}
 {% block innernav %}
 				<ul>
-					<li><a class="active" href="#">Alle</a></li>
-					<li><a href="{{ app.url_generator.generate('filter_users', {filter : 'ROLE_ADMIN' }) }}">Eigenaren</a></li>
-					<li><a href="#">Redactie</a></li>
-					<li><a href="#">Leden</a></li>
+					<li><a {% if active('filter') == false %} class="active" {% endif %} href="{{ url('users') }}">Alle</a></li>
+					<li><a {% if active('ROLE_ADMIN') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'ROLE_ADMIN' }) }}">Eigenaren</a></li>
+					<li><a {% if active('ROLE_EDITOR') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'ROLE_EDITOR' }) }}">Redactie</a></li>
+					<li><a {% if active('ROLE_USER') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'ROLE_USER' }) }}">Leden</a></li>
 				</ul>
 {% endblock %}
 {% block main %}
@@ -15,15 +15,26 @@
 					<h4>{{ users|length }} Gebruiker{% if users|length > 1 %}s {% endif %} gevonden</h4>
 					<div class="buttons">
 						<a href="#"><i class="fa fa-pencil"></i></a>
-						<a href="#"><i class="fa fa-trash"></i></a>
+						<a href="#" id="trash"><i class="fa fa-trash"></i></a>
 						<a href="{{ app.url_generator.generate('add_user') }}"><i class="fa fa-plus"></i></a>
+						<div class="pop-up" id="remove">
+								<h4>Weet je zeker dat je</h4><br />
+								<div id="remove-users">
+
+								</div>
+								<h4>wilt verwijderen?</h4><br />
+								<a class="button button-danger" id="remove-yes" href="#">Ja</a>
+								<a class="button button-danger" id="remove-no"href="#">Nee</a>
+
+
+						</div>
 					</div>
 				</div>
 				<div class="contents">
 					<table>
 						<thead>
 							<tr>
-							  <th><input type="checkbox"></th>
+							  <th><input id="slctAll" type="checkbox"></th>
 							  <th align="left">Gebruikersnaam</th>
 							  <th align="left">Classe</th>
 							  <th align="center">Gemaakt</th>
@@ -33,7 +44,7 @@
 
 							{% for user in users %}
 							<tr>
-							  <td><input type="checkbox"></td>
+							  <td><input type="checkbox" class="{{ user.username }}" id="{{ user.id }}" name="fieldSelect"></td>
 							  <td>{{ user.username }}</td>
 							  <td>{{ user.roles }}</td>
 							  <td align="center">{{ timeAgo(user.date) }} geleden <i class="fa fa-clock-o" title="{{ user.date }}"></td>
@@ -42,4 +53,67 @@
 						</tbody>
 					</table>
 				</div>
+<script type="text/javascript" language="javascript">
+
+
+	document.getElementById("trash").addEventListener("click", function(){
+
+
+		var elements = getCheckedBoxes('fieldSelect');
+		var contents = '';
+		var idList = '';
+	 	for (var i=0; i<elements.length; i++)  {
+
+			idList += elements[i]['id'] + ',';
+			contents += '#' + elements[i]['id'] + ':' + elements[i].className + '<br />';
+
+		}
+
+		document.getElementById("remove-users").innerHTML = contents;
+
+		document.getElementById("remove-yes").href = "{{ url('delete_users', {'id_list' : '_'} ) }}" + idList;
+
+		document.getElementById("remove").style.display = "block";
+	});
+	document.getElementById("remove-no").addEventListener("click", function(){
+		document.getElementById("remove").style.display = "none";
+	});
+
+	document.getElementById("slctAll").addEventListener("click", function(){checkAll();});
+	var checked = false;
+	function checkAll()
+	{
+	  var checkboxes = new Array();
+	  checkboxes = document.getElementsByTagName('input');
+
+		if(!checked){
+			for (var i=0; i<checkboxes.length; i++)  {
+				if (checkboxes[i].type == 'checkbox')   {
+					checkboxes[i].checked = true;
+				}
+			}
+			checked = true;
+		}else{
+			for (var i=0; i<checkboxes.length; i++)  {
+				if (checkboxes[i].type == 'checkbox')   {
+					checkboxes[i].checked = false;
+				}
+			}
+			checked = false;
+		}
+	}
+	function getCheckedBoxes(chkboxName) {
+	  	var checkboxes = document.getElementsByName(chkboxName);
+	  	var checkboxesChecked = [];
+	  	for (var i=0; i<checkboxes.length; i++) {
+		 	if (checkboxes[i].checked) {
+				checkboxesChecked.push(checkboxes[i]);
+		 	}
+	  	}
+	  	return test = (checkboxesChecked.length > 0 ? checkboxesChecked : null);
+	}
+
+
+
+</script>
 {% endblock %}

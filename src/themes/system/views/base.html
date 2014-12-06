@@ -18,11 +18,11 @@
 			<div class="stuck-top">
 				<nav>
 					<ul>
-						<li><a {{ active("home") }} href=""><i class="fa fa-home"></i></a></li>
-						<li><a {{ active("pages") }} href="#"><i class="fa fa-file"></i></a></li>
-						<li><a {{ active("users") }} href="#"><i class="fa fa-users"></i></a></li>
-						<li><a {{ active("settings") }} href="#"><i class="fa fa-cog"></i></a></li>
-						<li><a {{ active("hooks") }} href="#"><i class="fa fa-anchor"></i></a></li>
+						<li><a {% if active('home') %} class="active" {% endif %} href=""><i class="fa fa-home"></i></a></li>
+						<li><a {% if active('pages') %} class="active" {% endif %} href="#"><i class="fa fa-file"></i></a></li>
+						<li><a {% if active('users') %} class="active" {% endif %} href="#"><i class="fa fa-users"></i></a></li>
+						<li><a {% if active('settings') %} class="active" {% endif %} href="#"><i class="fa fa-cog"></i></a></li>
+						<li><a {% if active('hooks') %} class="active" {% endif %} href="#"><i class="fa fa-anchor"></i></a></li>
 
 					</ul>
 				</nav>

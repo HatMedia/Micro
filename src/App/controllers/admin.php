@@ -36,7 +36,7 @@ $render['admin']['users_add'] =  function(Request $request) use ($app) {
     if ($form->isValid()) {
         $data = $form->getData();
 		if($app['users']->insertUser($data['username'],$data['password'],$data['classes'])):
-        	return $app->redirect('../users');
+        	return $app->redirect($app['url_generator']->generate('users'));
 		endif;
 		return false;
     }
@@ -55,6 +55,12 @@ $render['admin']['users_insert'] = function(Request $request) use ($app) {
     ));
 };
 
+$render['admin']['users_remove']= function($id_list) use ($app) {
+
+	$list = array_filter(explode(',',str_replace('_','',$id_list)));
+	$app['users']->removeUsers($list);
+	return $app->redirect($app['url_generator']->generate('users'));
+};
 
 $render['admin']['users_filter']= function($filter) use ($app) {
 	return $app['twig']->render('system/views/users.html', array(

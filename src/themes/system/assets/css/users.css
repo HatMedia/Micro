@@ -153,6 +153,7 @@ nav ul li a.active, nav ul li a:hover{
 .inner-content .buttons{
 	float:right;
 	margin-right:0px;
+	position:relative;
 }
 
 .inner-content .buttons a, .inner-content .buttons button{
@@ -236,4 +237,65 @@ nav ul li a.active, nav ul li a:hover{
 	color:#2f313a;
 	float:left;
 	border:1px solid #ccc;
+}
+
+.pop-up{
+	position:absolute;
+	width:250px;
+	height:auto;
+	background:#5f97fb;
+	color:white;
+	box-shadow:0px 0px 4px #dbdde3;
+	text-decoration:none;
+	left:-125px;
+	padding:20px;
+	top:64px;
+	font-size:12px;
+	display:none;
+}
+.pop-up div{
+	line-height:1.6;
+	padding:5px;
+}
+.pop-up:after,
+.pop-up:before {
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.pop-up:after {
+    border-bottom-color: #5f97fb;
+    border-width: 19px;
+    left: 70%;
+    margin-left: -19px;
+}
+.pop-up:before {
+    border-bottom-color: #5f97fb;
+    border-width: 20px;
+    left: 70%;
+    margin-left: -20px;
+}
+.inner-content .pop-up h4{
+	width:100%;
+	display:inline-block;
+	color:white;
+	border:none;
+	padding:5px 5px;
+	font-size:14px;
+}
+.inner-content .pop-up .button{
+	color:white;
+	border:1px solid white;
+	float:right;
+	text-decoration:none;
+	padding:5px;
+}
+.inner-content .pop-up .button:hover{
+	background:white;
+	color:#5f97fb;
 }

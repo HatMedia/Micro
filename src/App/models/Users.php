@@ -60,4 +60,26 @@ class Users{
 		}
 		return true;
 	}
+
+	public function removeUsers($id){
+		$i = 1;
+		$sql = 'DELETE FROM users WHERE id IN (';
+		if(is_array($id)):
+			for($y = 0; $y < (count($id) ); $y++):
+			 	$sql .= ' ?,';
+			endfor;
+			$sql = rtrim($sql, ",").')';
+			echo $sql;
+
+			$stmt = $this->app['db']->prepare($sql);
+			foreach($id as $x):
+				$stmt->bindValue($i, $x);
+				$i++;
+			endforeach;
+		$stmt->execute();
+		endif;
+
+
+
+	}
 }
