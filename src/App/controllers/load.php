@@ -1,5 +1,6 @@
 <?php
 
+
 $render = array(
 	'admin' => array(),
 	'default' => array()

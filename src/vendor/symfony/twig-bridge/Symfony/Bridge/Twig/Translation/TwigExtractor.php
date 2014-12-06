@@ -39,6 +39,7 @@ class TwigExtractor implements ExtractorInterface
 
     /**
      * The twig environment.
+     *
      * @var \Twig_Environment
      */
     private $twig;
@@ -49,20 +50,26 @@ class TwigExtractor implements ExtractorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function extract($directory, MessageCatalogue $catalogue)
     {
         // load any existing translation files
         $finder = new Finder();
-        $files = $finder->files()->name('*.twig')->in($directory);
+        $files = $finder->files()->name('*.twig')->sortByName()->in($directory);
         foreach ($files as $file) {
-            $this->extractTemplate(file_get_contents($file->getPathname()), $catalogue);
+            try {
+                $this->extractTemplate(file_get_contents($file->getPathname()), $catalogue);
+            } catch (\Twig_Error $e) {
+                $e->setTemplateFile($file->getRelativePathname());
+
+                throw $e;
+            }
         }
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setPrefix($prefix)
     {

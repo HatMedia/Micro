@@ -1,13 +1,14 @@
 <?php
-use Symfony\Component\HttpFoundation\Request;
 
 include('controllers/load.php');
-
+use Symfony\Component\HttpFoundation\Request;
 
 // admin page
 $app->get('/'.$app['config']['system']['panel'],$render['admin']['home']);
 $app->get('/'.$app['config']['system']['panel'].'/home',$render['admin']['home']);
-$app->get('/'.$app['config']['system']['panel'].'/users',$render['admin']['users']);
+$app->get('/'.$app['config']['system']['panel'].'/users',$render['admin']['users'])->bind('users');
+$app->match('/'.$app['config']['system']['panel'].'/users/new',$render['admin']['users_add'])->bind('add_user');
+$app->get('/'.$app['config']['system']['panel'].'/users/filter/{filter}',$render['admin']['users_filter'])->bind('filter_users');
 
 // login page
 $app->get('/login', function(Request $request) use ($app) {

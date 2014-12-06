@@ -43,6 +43,19 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     )
 );
 
+
+use Silex\Provider\FormServiceProvider;
+$app->register(new FormServiceProvider());
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'translator.domains' => array(),
+));
+
+
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => $app['config']['template']['folder'],
     'twig.options' => array('debug' => true)
@@ -57,9 +70,17 @@ $app['twig']->addFunction($function);
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
+
 $app['twig']->addFunction(new \Twig_SimpleFunction('path', function($url) use ($app) {
     return $app['url_generator']->generate($url);
 }));
+
+$app['twig']->addFunction(new \Twig_SimpleFunction('timeAgo', function($time) use ($app) {
+   	$timeAgo = new TimeAgo();
+	return $timeAgo->inWords($time);
+}));
+
+
 
 include('User/UserProvider.php');
 $app->register(new Silex\Provider\SecurityServiceProvider(), array());
@@ -81,11 +102,12 @@ $app['security.access_rules'] = array(
 );
 
 
+
 require_once('Models/pages.php');
 $pages = new Models\Pages($app);
 
-require_once('Models/pages.php');
-$app['users'] = new Models\Pages($app);
+require_once('Models/Users.php');
+$app['users'] = new Models\Users($app);
 
 
 

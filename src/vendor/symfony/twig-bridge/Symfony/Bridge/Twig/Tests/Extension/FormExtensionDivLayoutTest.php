@@ -30,22 +30,6 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
 
     protected function setUp()
     {
-        if (!class_exists('Symfony\Component\Locale\Locale')) {
-            $this->markTestSkipped('The "Locale" component is not available');
-        }
-
-        if (!class_exists('Symfony\Component\EventDispatcher\EventDispatcher')) {
-            $this->markTestSkipped('The "EventDispatcher" component is not available');
-        }
-
-        if (!class_exists('Symfony\Component\Form\Form')) {
-            $this->markTestSkipped('The "Form" component is not available');
-        }
-
-        if (!class_exists('Twig_Environment')) {
-            $this->markTestSkipped('Twig is not available.');
-        }
-
         parent::setUp();
 
         $rendererEngine = new TwigRendererEngine(array(
@@ -64,6 +48,8 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
         $environment = new \Twig_Environment($loader, array('strict_variables' => true));
         $environment->addExtension(new TranslationExtension(new StubTranslator()));
         $environment->addGlobal('global', '');
+        // the value can be any template that exists
+        $environment->addGlobal('dynamic_template_name', 'child_label');
         $environment->addExtension($this->extension);
 
         $this->extension->initRuntime($environment);
@@ -106,6 +92,18 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
         );
     }
 
+    public function testThemeBlockInheritanceUsingDynamicExtend()
+    {
+        $view = $this->factory
+            ->createNamed('name', 'email')
+            ->createView()
+        ;
+
+        $renderer = $this->extension->renderer;
+        $renderer->setTheme($view, array('page_dynamic_extends.html.twig'));
+        $renderer->searchAndRenderBlock($view, 'row');
+    }
+
     public function isSelectedChoiceProvider()
     {
         // The commented cases should not be necessary anymore, because the
@@ -134,9 +132,14 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
      */
     public function testIsChoiceSelected($expected, $choice, $value)
     {
-        $choice = new ChoiceView($choice, $choice, $choice . ' label');
+        $choice = new ChoiceView($choice, $choice, $choice.' label');
 
         $this->assertSame($expected, $this->extension->isSelectedChoice($choice, $value));
+    }
+
+    protected function renderForm(FormView $view, array $vars = array())
+    {
+        return (string) $this->extension->renderer->renderBlock($view, 'form', $vars);
     }
 
     protected function renderEnctype(FormView $view)
@@ -173,6 +176,16 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
         return (string) $this->extension->renderer->searchAndRenderBlock($view, 'rest', $vars);
     }
 
+    protected function renderStart(FormView $view, array $vars = array())
+    {
+        return (string) $this->extension->renderer->renderBlock($view, 'form_start', $vars);
+    }
+
+    protected function renderEnd(FormView $view, array $vars = array())
+    {
+        return (string) $this->extension->renderer->renderBlock($view, 'form_end', $vars);
+    }
+
     protected function setTheme(FormView $view, array $themes)
     {
         $this->extension->renderer->setTheme($view, $themes);
@@ -181,14 +194,14 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
     public static function themeBlockInheritanceProvider()
     {
         return array(
-            array(array('theme.html.twig'))
+            array(array('theme.html.twig')),
         );
     }
 
     public static function themeInheritanceProvider()
     {
         return array(
-            array(array('parent_label.html.twig'), array('child_label.html.twig'))
+            array(array('parent_label.html.twig'), array('child_label.html.twig')),
         );
     }
 }

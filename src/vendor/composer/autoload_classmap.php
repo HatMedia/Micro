@@ -6,9 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Collator' => $vendorDir . '/symfony/intl/Symfony/Component/Intl/Resources/stubs/Collator.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator/Factory.php',
+    'IntlDateFormatter' => $vendorDir . '/symfony/intl/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
+    'Locale' => $vendorDir . '/symfony/intl/Symfony/Component/Intl/Resources/stubs/Locale.php',
+    'NumberFormatter' => $vendorDir . '/symfony/intl/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',

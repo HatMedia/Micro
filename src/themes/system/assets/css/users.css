@@ -100,6 +100,7 @@ nav ul li a.active, nav ul li a:hover{
 .main-content .inner-nav{
 	width:150px;
 	float:left;
+	min-height:1px;
 }
 .main-content .inner-nav ul {
 	margin:0;
@@ -154,7 +155,9 @@ nav ul li a.active, nav ul li a:hover{
 	margin-right:0px;
 }
 
-.inner-content .buttons a{
+.inner-content .buttons a, .inner-content .buttons button{
+	background:none;
+	border:none;
 	margin:0px;
 	padding:20px 0px;
 	color:#535767;
@@ -198,4 +201,38 @@ nav ul li a.active, nav ul li a:hover{
 }
 .contents table td{
 	padding:20px;
+}
+
+#form {
+	width:calc(100% - 40px);
+	margin:0px;
+	padding:20px;
+	font-size:16px;
+}
+#form div{
+	float:left;
+	width:100%;
+	margin-bottom:20px;
+	padding-bottom:20px;
+	border-top:1px solid white;
+	border-bottom:1px solid #dbdce2;
+}
+#form div label{
+	font-family: 'Roboto', sans-serif;
+	font-weight:100;
+	width:calc(100% - 20px;);
+
+	color:#2f313a;
+	float:left;
+	padding:5px 10px;
+}
+#form div input, #form div select{
+	font-size:16px;
+	width:calc(100% - 20px);
+	margin:5px 0;
+	padding:5px 10px;
+	border:0;
+	color:#2f313a;
+	float:left;
+	border:1px solid #ccc;
 }
