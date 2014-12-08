@@ -69,7 +69,6 @@ class Users{
 			 	$sql .= ' ?,';
 			endfor;
 			$sql = rtrim($sql, ",").')';
-			echo $sql;
 
 			$stmt = $this->app['db']->prepare($sql);
 			foreach($id as $x):
@@ -78,6 +77,63 @@ class Users{
 			endforeach;
 		$stmt->execute();
 		endif;
+	}
+
+	public function getList($id){
+		$i = 1;
+		$sql = 'SELECT * FROM users WHERE id IN (';
+		if(is_array($id)):
+			for($y = 0; $y < (count($id) ); $y++):
+			 	$sql .= ' ?,';
+			endfor;
+			$sql = rtrim($sql, ",").')';
+
+			$stmt = $this->app['db']->prepare($sql);
+			foreach($id as $x):
+				$stmt->bindValue($i, $x);
+				$i++;
+			endforeach;
+			$stmt->execute();
+			$return = array();
+			foreach($stmt->fetchAll() as $user):
+
+				$return[$user['id']] = $user;
+
+			endforeach;
+		endif;
+		return $return;
+	}
+
+	public function update($id, $settings){
+		$sql = 'UPDATE users SET';
+		if(isset($settings['username']) && $settings['username'] != ''):
+			$sql .= ' username = :us,';
+		endif;
+		if(isset($settings['classes']) && $settings['classes'] != ''):
+			$sql .= ' roles = :rol,';
+		endif;
+		if(isset($settings['password']) && $settings['password'] != '' && !is_null($settings['password'])):
+			$sql .= ' password = :pas,';
+		endif;
+		$sql = rtrim($sql, ",");
+		$sql.=' WHERE id = :id';
+
+		print_r($settings);
+
+		echo $sql;
+		$stmt = $this->app['db']->prepare($sql);
+		$stmt->bindValue(':id', $id);
+
+		if(isset($settings['username']) && $settings['username'] != ''):
+			$stmt->bindValue(':us', $settings['username']);
+		endif;
+		if(isset($settings['classes']) && $settings['classes'] != ''):
+			$stmt->bindValue(':rol', $settings['classes']);
+		endif;
+		if(isset($settings['password']) && $settings['password'] != '' && !is_null($settings['password'])):
+			$stmt->bindValue(':pas', $this->app['security.encoder.digest']->encodePassword($settings['password'],''));
+		endif;
+		$stmt->execute();
 
 
 

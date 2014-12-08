@@ -1,0 +1,21 @@
+{% extends "system/views/base.html" %}
+{% block title %}
+	Gebruiker(s) bewerken
+{% endblock %}
+{% block main %}
+			<form method="POST" action="#">
+				<div class="heading">
+					<h4>Gebruikers bewerken</h4>
+					<div class="buttons">
+						<a href="{{ path('users') }}"><i class="fa fa-arrow-left"></i></a>
+						<a href="{{ path('add_user') }}"><i class="fa fa-refresh"></i></a>
+						<button type="submit"><i class="fa fa-check"></i></button>
+					</div>
+				</div>
+				<div class="contents">
+
+					    {{ form_widget(form) }}
+
+				</div>
+			</form>
+{% endblock %}

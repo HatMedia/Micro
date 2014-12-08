@@ -48,6 +48,56 @@ $render['admin']['users_add'] =  function(Request $request) use ($app) {
 	));
 };
 
+$render['admin']['users_edit'] =  function($id_list, Request $request) use ($app) {
+
+
+	$ids = explode(',',str_replace('_','',rtrim($id_list, ",")));
+
+	$userData = $app['users']->getList($ids);
+	$data = array();
+	foreach($ids as $id):
+		$data[$id.'_username'] = $userData[$id]['username'];
+		$data[$id.'_classes'] = $userData[$id]['roles'];
+	endforeach;
+	$form = $app['form.factory']->createBuilder('form', $data);
+	foreach($ids as $id):
+	$form
+		->add($id.'_username')
+        ->add($id.'_password', 'password', array(
+			'required' => false
+		))
+        ->add($id.'_classes', 'choice', array(
+            'choices' => array('ROLE_ADMIN' => 'admin', 'ROLE_USER' => 'user'),
+            'expanded' => false,
+        ));
+	endforeach;
+
+
+
+    $form = $form->getForm();
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+        $postData = $form->getData();
+		$data = array();
+		foreach($postData as $key => $val):
+			$info = explode('_',$key);
+			$data[$info[0]][$info[1]] = $val;
+		endforeach;
+
+		foreach($data as $key => $val):
+			$app['users']->update($id,$val);
+		endforeach;
+		//return $app->redirect($app['url_generator']->generate('users'));
+    }
+
+
+	return $app['twig']->render('system/views/users_edit.html', array(
+		'path' => 'http://localhost/micro/Micro/src/themes/system',
+		'form' => $form->createView()
+	));
+};
+
 $render['admin']['users_insert'] = function(Request $request) use ($app) {
    return $app['twig']->render('system/views/users_new.html', array(
         'request' => $request,

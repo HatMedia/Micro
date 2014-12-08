@@ -14,19 +14,15 @@
 				<div class="heading">
 					<h4>{{ users|length }} Gebruiker{% if users|length > 1 %}s {% endif %} gevonden</h4>
 					<div class="buttons">
-						<a href="#"><i class="fa fa-pencil"></i></a>
+						<a href="#" id="edit"><i class="fa fa-pencil"></i></a>
 						<a href="#" id="trash"><i class="fa fa-trash"></i></a>
-						<a href="{{ app.url_generator.generate('add_user') }}"><i class="fa fa-plus"></i></a>
+						<a href="{{ url('add_user') }}"><i class="fa fa-plus"></i></a>
 						<div class="pop-up" id="remove">
-								<h4>Weet je zeker dat je</h4><br />
-								<div id="remove-users">
-
-								</div>
-								<h4>wilt verwijderen?</h4><br />
-								<a class="button button-danger" id="remove-yes" href="#">Ja</a>
-								<a class="button button-danger" id="remove-no"href="#">Nee</a>
-
-
+							<h4>Weet je zeker dat je</h4><br />
+							<div id="remove-users"></div>
+							<h4>wilt verwijderen?</h4><br />
+							<a class="button button-danger" id="remove-yes" href="#">Ja</a>
+							<a class="button button-danger" id="remove-no"href="#">Nee</a>
 						</div>
 					</div>
 				</div>
@@ -55,6 +51,16 @@
 				</div>
 <script type="text/javascript" language="javascript">
 
+	document.getElementById("edit").addEventListener("click", function(){
+		var elements = getCheckedBoxes('fieldSelect');
+		var contents = '';
+		var idList = '';
+	 	for (var i=0; i<elements.length; i++)  {
+			idList += elements[i]['id'] + ',';
+			contents += '#' + elements[i]['id'] + ':' + elements[i].className + '<br />';
+		}
+		document.getElementById("edit").href = "{{ url('edit_users', {'id_list' : '_'} ) }}" + idList;
+	});
 
 	document.getElementById("trash").addEventListener("click", function(){
 
@@ -112,8 +118,6 @@
 	  	}
 	  	return test = (checkboxesChecked.length > 0 ? checkboxesChecked : null);
 	}
-
-
 
 </script>
 {% endblock %}
