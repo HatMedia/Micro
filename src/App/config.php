@@ -18,20 +18,17 @@ use Herrera\Silex\ActiveLinkServiceProvider;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
-
-
 $app['debug'] = true;
-
 $app['config'] = array(
 
 	'template' => array(
 		'extension' => 'html',
-		'folder' => ROOT.'/themes'
+		'folder' => ROOT.'/themes',
+		'path' => 'http://localhost/micro/Micro/src/themes/system'
 	),
 	'system' => array(
 		'panel' => 'admin'
 	),
-
 );
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
@@ -46,7 +43,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     )
 );
 
-
 use Silex\Provider\FormServiceProvider;
 $app->register(new FormServiceProvider());
 
@@ -57,13 +53,10 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'translator.domains' => array(),
 ));
 
-
-
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => $app['config']['template']['folder'],
     'twig.options' => array('debug' => true)
 ));
-
 
 $app['twig']->addFunction(
 	new Twig_SimpleFunction(
@@ -82,19 +75,14 @@ $app['twig']->addFunction(
 	)
 );
 
-
 $app['twig']->addFunction(new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
 	return $app['security']->isGranted($role,$object);
 }));
-
-
 
 $app['twig']->addFunction(new \Twig_SimpleFunction('timeAgo', function($time) use ($app) {
    	$timeAgo = new TimeAgo();
 	return $timeAgo->inWords($time);
 }));
-
-
 
 include('User/UserProvider.php');
 $app->register(new Silex\Provider\SecurityServiceProvider(), array());
@@ -110,21 +98,16 @@ $app['security.firewalls'] = array(
     ),
 );
 
-
 $app['security.access_rules'] = array(
 	//[TODO]make this a loop ..
     array('^/'.$app['config']['system']['panel'].'', 'ROLE_ADMIN'),
 	array('^/'.$app['config']['system']['panel'].'', 'ROLE_EDITOR'),
 );
 
-
-
 require_once('Models/pages.php');
 $app['pages'] = new Models\Pages($app);
 
 require_once('Models/Users.php');
 $app['users'] = new Models\Users($app);
-
-
 
 require_once('routes.php');

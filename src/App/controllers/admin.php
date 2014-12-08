@@ -3,20 +3,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 $render['admin']['home'] = function() use ($app) {
 	return $app['twig']->render('system/views/home.html', array(
-		'path' => 'http://localhost/micro/Micro/src/themes/system'
+		'path' => $app['config']['template']['path']
 	));
 };
 
 $render['admin']['users'] = function() use ($app) {
 	return $app['twig']->render('system/views/users.html', array(
-		'path' => 'http://localhost/micro/Micro/src/themes/system',
+		'path' => $app['config']['template']['path'],
 		'users' => $app['users']->getUsers()
 	));
 };
 
 $render['admin']['users_add'] =  function(Request $request) use ($app) {
 
-	    // some default data for when the form is displayed the first time
     $data = array(
         'username' => 'Username',
         'password' => 'password',
@@ -43,7 +42,7 @@ $render['admin']['users_add'] =  function(Request $request) use ($app) {
 
 
 	return $app['twig']->render('system/views/users_new.html', array(
-		'path' => 'http://localhost/micro/Micro/src/themes/system',
+		'path' => $app['config']['template']['path'],
 		'form' => $form->createView()
 	));
 };
@@ -72,8 +71,6 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
         ));
 	endforeach;
 
-
-
     $form = $form->getForm();
     $form->handleRequest($request);
 
@@ -91,9 +88,8 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
 		return $app->redirect($app['url_generator']->generate('users'));
     }
 
-
 	return $app['twig']->render('system/views/users_edit.html', array(
-		'path' => 'http://localhost/micro/Micro/src/themes/system',
+		'path' => $app['config']['template']['path'],
 		'form' => $form->createView()
 	));
 };
@@ -101,7 +97,7 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
 $render['admin']['users_insert'] = function(Request $request) use ($app) {
    return $app['twig']->render('system/views/users_new.html', array(
         'request' => $request,
-	   	'path' => 'http://localhost/micro/Micro/src/themes/system'
+	   	'path' => $app['config']['template']['path']
     ));
 };
 
@@ -114,7 +110,7 @@ $render['admin']['users_remove']= function($id_list) use ($app) {
 
 $render['admin']['users_filter']= function($filter) use ($app) {
 	return $app['twig']->render('system/views/users.html', array(
-		'path' => 'http://localhost/micro/Micro/src/themes/system',
+		'path' => $app['config']['template']['path'],
 		'users' => $app['users']->getUsersFrom($filter)
 	));
 };
