@@ -88,7 +88,7 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
 		foreach($data as $key => $val):
 			$app['users']->update($id,$val);
 		endforeach;
-		//return $app->redirect($app['url_generator']->generate('users'));
+		return $app->redirect($app['url_generator']->generate('users'));
     }
 
 

@@ -1,5 +1,4 @@
 <?php
-
 include('controllers/load.php');
 use Symfony\Component\HttpFoundation\Request;
 

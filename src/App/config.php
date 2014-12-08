@@ -112,13 +112,15 @@ $app['security.firewalls'] = array(
 
 
 $app['security.access_rules'] = array(
+	//[TODO]make this a loop ..
     array('^/'.$app['config']['system']['panel'].'', 'ROLE_ADMIN'),
+	array('^/'.$app['config']['system']['panel'].'', 'ROLE_EDITOR'),
 );
 
 
 
 require_once('Models/pages.php');
-$pages = new Models\Pages($app);
+$app['pages'] = new Models\Pages($app);
 
 require_once('Models/Users.php');
 $app['users'] = new Models\Users($app);
