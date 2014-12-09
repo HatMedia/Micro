@@ -118,9 +118,6 @@ class Users{
 		$sql = rtrim($sql, ",");
 		$sql.=' WHERE id = :id';
 
-		print_r($settings);
-
-		echo $sql;
 		$stmt = $this->app['db']->prepare($sql);
 		$stmt->bindValue(':id', $id);
 
@@ -134,7 +131,6 @@ class Users{
 			$stmt->bindValue(':pas', $this->app['security.encoder.digest']->encodePassword($settings['password'],''));
 		endif;
 		$stmt->execute();
-
 
 
 	}
