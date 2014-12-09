@@ -44,7 +44,6 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 use Silex\Provider\FormServiceProvider;
 $app->register(new FormServiceProvider());
 
-use Symfony\Component\Validator\Constraints as Assert;
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
@@ -73,14 +72,16 @@ $app['twig']->addFunction(
 	)
 );
 
-$app['twig']->addFunction(new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
-	return $app['security']->isGranted($role,$object);
-}));
-
 $app['twig']->addFunction(new Twig_SimpleFunction('timeAgo', function($time) use ($app) {
    	$timeAgo = new TimeAgo();
 	return $timeAgo->inWords($time);
 }));
+
+$app['twig']->addFunction(new Twig_SimpleFunction('is_granted', function($role,$object = null) use ($app){
+	return $app['security']->isGranted($role,$object);
+}));
+
+
 
 include('User/UserProvider.php');
 $app->register(new Silex\Provider\SecurityServiceProvider(), array());

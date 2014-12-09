@@ -65,7 +65,8 @@ class Users{
 		$i = 1;
 		$sql = 'DELETE FROM users WHERE id IN (';
 		if(is_array($id)):
-			for($y = 0; $y < (count($id) ); $y++):
+			$count = count($id);
+			for($y = 0; $y < $count; $y++):
 			 	$sql .= ' ?,';
 			endfor;
 			$sql = rtrim($sql, ",").')';
