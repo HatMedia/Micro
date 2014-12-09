@@ -36,14 +36,16 @@ Our advise is simply start of with the default themes, modify them the way you l
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a/big.png)](https://insight.sensiolabs.com/projects/c5231522-8df6-468e-8661-f248e16ee68a)
 
-##### HT ACCESSS
+##### .HTACCESSS
 
-<IfModule mod_rewrite.c>
-    Options -MultiViews
+Set up an .htaccess file inside the src/web folder :) this is git ignored cuz of reasons (better way to do it ? put it in your server)
 
-    RewriteEngine On
-    #RewriteBase /path/to/app
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [QSA,L]
-</IfModule>
+	<IfModule mod_rewrite.c>
+    	Options -MultiViews
+
+    	RewriteEngine On
+    	#RewriteBase /path/to/app
+    	RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteRule ^ index.php [QSA,L]
+	</IfModule>
 

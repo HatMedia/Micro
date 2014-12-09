@@ -72,7 +72,7 @@ $app['twig']->addFunction(
 	)
 );
 
-$app['twig']->addFunction(new Twig_SimpleFunction('timeAgo', function($time) use ($app) {
+$app['twig']->addFunction(new Twig_SimpleFunction('timeAgo', function($time, $object = null) use ($app) {
    	$timeAgo = new TimeAgo();
 	return $timeAgo->inWords($time);
 }));
