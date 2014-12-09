@@ -14,8 +14,6 @@ define('ROOT',dirname(__DIR__));
 $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
-use Herrera\Silex\ActiveLinkServiceProvider;
-
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['debug'] = true;
@@ -79,7 +77,7 @@ $app['twig']->addFunction(new Twig_SimpleFunction('is_granted', function($role,$
 	return $app['security']->isGranted($role,$object);
 }));
 
-$app['twig']->addFunction(new \Twig_SimpleFunction('timeAgo', function($time) use ($app) {
+$app['twig']->addFunction(new Twig_SimpleFunction('timeAgo', function($time) use ($app) {
    	$timeAgo = new TimeAgo();
 	return $timeAgo->inWords($time);
 }));
@@ -99,7 +97,6 @@ $app['security.firewalls'] = array(
 );
 
 $app['security.access_rules'] = array(
-	//[TODO]make this a loop ..
     array('^/'.$app['config']['system']['panel'].'', 'ROLE_ADMIN'),
 	array('^/'.$app['config']['system']['panel'].'', 'ROLE_EDITOR'),
 );
