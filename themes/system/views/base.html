@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Micro | {% block title %}{% endblock %}</title>
+		<link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+		<link href="{{ path }}/assets/css/users.css" rel="stylesheet" type="text/css" />
+
+	</head>
+	<body>
+		<header>
+			<a class="logo" href="#">Micro</a>
+			<h1>{{ block('title') }}</h1>
+		</header>
+		<section class="header">
+			<div class="stuck-top">
+				<nav>
+					<ul>
+						<li><a {% if active('home') %} class="active" {% endif %} href=""><i class="fa fa-home"></i></a></li>
+						<li><a {% if active('pages') %} class="active" {% endif %} href="#"><i class="fa fa-file"></i></a></li>
+						<li><a {% if active('users') %} class="active" {% endif %} href="#"><i class="fa fa-users"></i></a></li>
+						<li><a {% if active('settings') %} class="active" {% endif %} href="#"><i class="fa fa-cog"></i></a></li>
+						<li><a {% if active('hooks') %} class="active" {% endif %} href="#"><i class="fa fa-anchor"></i></a></li>
+
+					</ul>
+				</nav>
+				<div class="divider"></div>
+			</div>
+		</section>
+		<section class="main-content">
+			<div class="inner-nav">
+			{% block innernav %}
+			{% endblock %}
+			</div>
+			<div class="inner-content">
+			{% block main %}
+			{% endblock %}
+		</section>
+			<script type="text/javascript" language="javascript">
+
+	document.getElementById("edit").addEventListener("click", function(){
+		var elements = getCheckedBoxes('fieldSelect');
+		var contents = '';
+		var idList = '';
+	 	for (var i=0; i<elements.length; i++)  {
+			idList += elements[i]['id'] + ',';
+			contents += '#' + elements[i]['id'] + ':' + elements[i].className + '<br />';
+		}
+		document.getElementById("edit").href = "{{ url('edit_users', {'id_list' : '_'} ) }}" + idList;
+	});
+
+	document.getElementById("trash").addEventListener("click", function(){
+
+
+		var elements = getCheckedBoxes('fieldSelect');
+		var contents = '';
+		var idList = '';
+	 	for (var i=0; i<elements.length; i++)  {
+
+			idList += elements[i]['id'] + ',';
+			contents += '#' + elements[i]['id'] + ':' + elements[i].className + '<br />';
+
+		}
+
+		document.getElementById("remove-users").innerHTML = contents;
+
+		document.getElementById("remove-yes").href = "{{ url('delete_users', {'id_list' : '_'} ) }}" + idList;
+
+		document.getElementById("remove").style.display = "block";
+	});
+	document.getElementById("remove-no").addEventListener("click", function(){
+		document.getElementById("remove").style.display = "none";
+	});
+
+	document.getElementById("slctAll").addEventListener("click", function(){checkAll();});
+	var checked = false;
+	function checkAll()
+	{
+	  var checkboxes = new Array();
+	  checkboxes = document.getElementsByTagName('input');
+
+		if(!checked){
+			for (var i=0; i<checkboxes.length; i++)  {
+				if (checkboxes[i].type == 'checkbox')   {
+					checkboxes[i].checked = true;
+				}
+			}
+			checked = true;
+		}else{
+			for (var i=0; i<checkboxes.length; i++)  {
+				if (checkboxes[i].type == 'checkbox')   {
+					checkboxes[i].checked = false;
+				}
+			}
+			checked = false;
+		}
+	}
+	function getCheckedBoxes(chkboxName) {
+	  	var checkboxes = document.getElementsByName(chkboxName);
+	  	var checkboxesChecked = [];
+	  	for (var i=0; i<checkboxes.length; i++) {
+		 	if (checkboxes[i].checked) {
+				checkboxesChecked.push(checkboxes[i]);
+		 	}
+	  	}
+	  	return test = (checkboxesChecked.length > 0 ? checkboxesChecked : null);
+	}
+
+</script>
+	</body>
+</html>

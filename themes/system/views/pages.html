@@ -1,0 +1,54 @@
+{% extends "system/views/base.html" %}
+{% block title %}
+	Pagina's
+{% endblock %}
+{% block innernav %}
+				<ul>
+					<li><a {% if active('filter') == false %} class="active" {% endif %} href="{{ url('pages') }}">Alle</a></li>
+					<li><a {% if active('active') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'active' }) }}">Eigenaren</a></li>
+
+				</ul>
+{% endblock %}
+{% block main %}
+				<div class="heading">
+					<h4>{{ pages|length }} Pagina{% if pages|length > 1 %}'s {% endif %} gevonden</h4>
+					<div class="buttons">
+						<a href="#" id="edit"><i class="fa fa-pencil"></i></a>
+						<a href="#" id="trash"><i class="fa fa-trash"></i></a>
+						<a href="{{ url('add_user') }}"><i class="fa fa-plus"></i></a>
+						<div class="pop-up" id="remove">
+							<h4>Weet je zeker dat je</h4><br />
+							<div id="remove-users"></div>
+							<h4>wilt verwijderen?</h4><br />
+							<a class="button button-danger" id="remove-yes" href="#">Ja</a>
+							<a class="button button-danger" id="remove-no"href="#">Nee</a>
+						</div>
+					</div>
+				</div>
+				<div class="contents">
+					<table>
+						<thead>
+							<tr>
+							  <th><input id="slctAll" type="checkbox"></th>
+							  <th align="left">Naam</th>
+							  <th align="left">url</th>
+							  <th align="left">Template</th>
+								<th align="center">Datum</th>
+							</tr>
+						  </thead>
+						  <tbody>
+
+							{% for page in pages %}
+							<tr>
+							  <td><input type="checkbox" class="{{ page.name }}" id="{{ page.id }}" name="fieldSelect"></td>
+							  <td>{{ page.name }}</td>
+							  <td><code>/</code>{{ page.slug }}</td>
+								<td>{{ page.template }}</td>
+							  <td align="center">{{ timeAgo(page.date) }} geleden <i class="fa fa-clock-o" title="{{ page.date }}"></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+{% endblock %}
