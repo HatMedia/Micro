@@ -41,8 +41,8 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 );
 
 use Silex\Provider\FormServiceProvider;
-$app->register(new FormServiceProvider());
 
+$app->register(new FormServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(

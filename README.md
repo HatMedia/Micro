@@ -46,6 +46,6 @@ Set up an .htaccess file into the root folder.
     	RewriteEngine On
     	#RewriteBase /path/to/app
     	RewriteCond %{REQUEST_FILENAME} !-f
-		RewriteRule ^ index.php [QSA,L]
+	RewriteRule ^ index.php [QSA,L]
 	</IfModule>
 
