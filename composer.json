@@ -1,5 +1,5 @@
 {
-	"name": "HatMedia/Micro",
+	"name": "hat-media/micro",
 	"description": "Simple micro cms to serve the web",
 	"homepage": "http://github.com/hatmedia/micro",
 	"keywords": ["CMS", "Silex", "PHP", "Symfony"],
