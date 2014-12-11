@@ -38,7 +38,7 @@ Our advise is simply start of with the default themes, modify them the way you l
 
 ##### .HTACCESSS
 
-Set up an .htaccess file inside the src/web folder :) this is git ignored cuz of reasons (better way to do it ? put it in your server)
+Set up an .htaccess file into the root folder.
 
 	<IfModule mod_rewrite.c>
     	Options -MultiViews
