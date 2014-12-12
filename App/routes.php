@@ -39,3 +39,4 @@ $app->get('/login', function(Request $request) use ($app) {
 // cms front
 $app->get('/', $render['default']['main'](false)); // should redir this instead of algo this.. [todo]
 $app->get('/{slug}', $render['default']['main']);
+
