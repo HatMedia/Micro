@@ -7,6 +7,18 @@ $render['admin']['home'] = function() use ($app) {
 	));
 };
 
+$render['admin']['settings'] = function() use ($app) {
+	return $app['twig']->render('system/views/pages.html', array(
+		'path' => $app['config']['template']['path'],
+		'pages' => $app['pages']->getPages()
+	));
+};
+
+/* Temporary placeholder for pages, this will be replaced with the pages routers */
+$render['admin']['pages_remove'] = function() use ($app) { return 'settings'; };
+$render['admin']['pages_add'] = function() use ($app) { return 'settings'; };
+$render['admin']['pages_filter'] = function() use ($app) { return 'settings'; };
+$render['admin']['pages_edit'] = function() use ($app) { return 'settings'; };
 
 $render['admin']['pages'] = function() use ($app) {
 	return $app['twig']->render('system/views/pages.html', array(

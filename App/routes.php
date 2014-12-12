@@ -20,13 +20,12 @@ $app->get('/'.$app['config']['system']['panel'].'/pages/filter/{filter}',$render
 $app->get('/'.$app['config']['system']['panel'].'/pages/remove/{id_list}',$render['admin']['pages_remove'])->bind('delete_pages');
 $app->match('/'.$app['config']['system']['panel'].'/pages/edit/{id_list}',$render['admin']['pages_edit'])->bind('edit_pages');
 
-
-
-
 // hooks
 
-// settings
 
+
+// settings
+$app->get('/'.$app['config']['system']['panel'].'/settings',$render['admin']['settings'])->bind('settings');
 
 // login page
 $app->get('/login', function(Request $request) use ($app) {
