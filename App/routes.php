@@ -32,7 +32,7 @@ $app->get('/login', function(Request $request) use ($app) {
    return $app['twig']->render('system/views/login.html', array(
         'error' => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
-	   	'path' => 'http://localhost/micro/Micro/src/themes/system'
+	   	'path' => $app['config']['template']['path']
     ));
 });
 

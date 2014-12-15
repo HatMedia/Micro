@@ -1,0 +1,20 @@
+{% extends "system/views/base.html" %}
+{% block title %}
+	Settings
+{% endblock %}
+{% block innernav %}
+				<ul>
+					<li><a {% if active('filter') == false %} class="active" {% endif %} href="{{ url('users') }}">Uiterlijk</a></li>
+					<li><a {% if active('ROLE_ADMIN') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'ROLE_ADMIN' }) }}">SEO</a></li>
+					<li><a {% if active('ROLE_EDITOR') %} class="active" {% endif %} href="{{ url('filter_users', {filter : 'ROLE_EDITOR' }) }}">Permissies</a></li>
+				</ul>
+{% endblock %}
+{% block main %}
+				<div class="heading">
+					<h4>Instellingen</h4>
+					<div class="buttons">
+						<a href="#" id="edit"><i class="fa fa-check"></i></a>
+					</div>
+				<div class="contents">
+				</div>
+{% endblock %}

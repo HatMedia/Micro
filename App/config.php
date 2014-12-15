@@ -21,7 +21,7 @@ $app['config'] = array(
 	'template' => array(
 		'extension' => 'html',
 		'folder' => ROOT.'/themes',
-		'path' => 'http://localhost/micro/Micro/themes/system'
+		'path' => 'http://micro.dev/themes/system'
 	),
 	'system' => array(
 		'panel' => 'admin'
