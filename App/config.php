@@ -9,24 +9,41 @@
  */
 
 define('ROOT',dirname(__DIR__));
+require_once('Models/Settings.php');
+require_once('Models/pages.php');
+require_once('Models/Users.php');
+$settings = new Models\Settings(ROOT.'/App/micro_config.json');
 
 $loader = require ROOT."/vendor/autoload.php";
 
 $app = new Silex\Application();
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+// set up settings  ['todo move']
+$siteUrl = 'http://micro.dev/';
+$templateFolder = 'themes/';
+$theme = 'system';
+
+
 $app['debug'] = true;
 $app['config'] = array(
 
+	'url' => 'http://micro.dev/',
 	'template' => array(
+		'folder' => 'themes/',
 		'extension' => 'html',
-		'folder' => ROOT.'/themes',
-		'path' => 'http://micro.dev/themes/system'
 	),
 	'system' => array(
-		'panel' => 'admin'
+		'panel' => 'admin',
+		'template' => array(
+			'folder' => ROOT.'themes/',
+			'theme' => 'system',
+			'path' => $siteUrl.$templateFolder.$theme
+		),
 	),
+	'settings' => $settings->obtain()
 );
+
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array (
@@ -98,10 +115,8 @@ $app['security.access_rules'] = array(
 	array('^/'.$app['config']['system']['panel'].'', 'ROLE_EDITOR'),
 );
 
-require_once('Models/pages.php');
 $app['pages'] = new Models\Pages($app);
 
-require_once('Models/Users.php');
 $app['users'] = new Models\Users($app);
 
 require_once('routes.php');

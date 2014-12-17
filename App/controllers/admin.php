@@ -3,14 +3,43 @@ use Symfony\Component\HttpFoundation\Request;
 
 $render['admin']['home'] = function() use ($app) {
 	return $app['twig']->render('system/views/home.html', array(
-		'path' => $app['config']['template']['path']
+		'path' => $app['config']['system']['template']['path']
 	));
 };
 
-$render['admin']['settings'] = function() use ($app) {
+$render['admin']['settings'] = function(Request $request) use ($app) {
+	 $data = array(
+        'username' => 'Username',
+        'password' => 'password',
+    );
+
+    $form = $app['form.factory']->createBuilder('form', $data)
+        ->add('Site_Naam')
+        ->add('Thema', 'choice', array(
+			'choices' => array('a' => 'b'),
+			'expanded' => false,
+
+		))
+        ->add('classes', 'choice', array(
+            'choices' => array('ROLE_ADMIN' => 'admin', 'ROLE_USER' => 'user'),
+            'expanded' => false,
+        ))
+        ->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+        $data = $form->getData();
+		if($app['users']->insertUser($data['username'],$data['password'],$data['classes'])):
+        	return $app->redirect($app['url_generator']->generate('users'));
+		endif;
+		return false;
+    }
+
+
 	return $app['twig']->render('system/views/settings.html', array(
-		'path' => $app['config']['template']['path'],
-		'pages' => $app['pages']->getPages()
+		'path' => $app['config']['system']['template']['path'],
+		'form' => $form->createView()
 	));
 };
 
@@ -18,8 +47,8 @@ $render['admin']['settings'] = function() use ($app) {
 $render['admin']['pages_remove'] = function() use ($app) { return 'settings'; };
 $render['admin']['pages_add'] = function() use ($app) {
 	return $app['twig']->render('system/views/pages_add.html', array(
-	        'path' => $app['config']['template']['path'],
-	        'pages' => $app['pages']->getPages()
+		'path' => $app['config']['system']['template']['path'],
+		'pages' => $app['pages']->getPages()
 	));
 
 };
@@ -28,14 +57,14 @@ $render['admin']['pages_edit'] = function() use ($app) { return 'settings'; };
 
 $render['admin']['pages'] = function() use ($app) {
 	return $app['twig']->render('system/views/pages.html', array(
-		'path' => $app['config']['template']['path'],
+		'path' => $app['config']['system']['template']['path'],
 		'pages' => $app['pages']->getPages()
 	));
 };
 
 $render['admin']['users'] = function() use ($app) {
 	return $app['twig']->render('system/views/users.html', array(
-		'path' => $app['config']['template']['path'],
+		'path' => $app['config']['system']['template']['path'],
 		'users' => $app['users']->getUsers()
 	));
 };
@@ -68,7 +97,7 @@ $render['admin']['users_add'] =  function(Request $request) use ($app) {
 
 
 	return $app['twig']->render('system/views/users_new.html', array(
-		'path' => $app['config']['template']['path'],
+		'path' => $app['config']['system']['template']['path'],
 		'form' => $form->createView()
 	));
 };
@@ -115,7 +144,7 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
     }
 
 	return $app['twig']->render('system/views/users_edit.html', array(
-		'path' => $app['config']['template']['path'],
+		'path' => $app['config']['system']['template']['path'],
 		'form' => $form->createView()
 	));
 };
@@ -123,7 +152,7 @@ $render['admin']['users_edit'] =  function($id_list, Request $request) use ($app
 $render['admin']['users_insert'] = function(Request $request) use ($app) {
    return $app['twig']->render('system/views/users_new.html', array(
         'request' => $request,
-	   	'path' => $app['config']['template']['path']
+	   	'path' => $app['config']['system']['template']['path']
     ));
 };
 
@@ -136,7 +165,7 @@ $render['admin']['users_remove']= function($id_list) use ($app) {
 
 $render['admin']['users_filter']= function($filter) use ($app) {
 	return $app['twig']->render('system/views/users.html', array(
-		'path' => $app['config']['template']['path'],
+		'path' => $app['config']['system']['template']['path'],
 		'users' => $app['users']->getUsersFrom($filter)
 	));
 };
