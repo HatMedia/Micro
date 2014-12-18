@@ -26,6 +26,7 @@ $theme = 'system';
 
 
 $app['debug'] = true;
+$app['settings'] = $settings;
 $app['config'] = array(
 
 	'url' => 'http://micro.dev/',

@@ -10,12 +10,15 @@
 				</ul>
 {% endblock %}
 {% block main %}
+			
+			<form method="POST" action="#">
 				<div class="heading">
 					<h4>Instellingen</h4>
 					<div class="buttons">
-
+						<button class="" type="submit"><i class="fa fa-check"></i></button>
 					</div>
 				<div class="contents">
 					{{ form_widget(form) }}
 				</div>
+			</form>
 {% endblock %}

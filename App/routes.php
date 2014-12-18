@@ -25,14 +25,14 @@ $app->match('/'.$app['config']['system']['panel'].'/pages/edit/{id_list}',$rende
 
 
 // settings
-$app->get('/'.$app['config']['system']['panel'].'/settings',$render['admin']['settings'])->bind('settings');
+$app->match('/'.$app['config']['system']['panel'].'/settings',$render['admin']['settings'])->bind('settings');
 
 // login page
 $app->get('/login', function(Request $request) use ($app) {
    return $app['twig']->render('system/views/login.html', array(
         'error' => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
-	   	'path' => $app['config']['template']['path']
+	   	'path' => $app['config']['system']['template']['path']
     ));
 });
 

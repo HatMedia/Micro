@@ -8,32 +8,31 @@ $render['admin']['home'] = function() use ($app) {
 };
 
 $render['admin']['settings'] = function(Request $request) use ($app) {
-	 $data = array(
-        'username' => 'Username',
-        'password' => 'password',
+	$settings = $app['settings']->obtain();
+	$themes = $app['settings']->getThemes(ROOT.'/themes/*');
+	$data = array(
+        'siteName' => $settings->siteName,
+        'description' => $settings->description,
     );
-
+	
+	$templateChoises = array();
+    	foreach($themes as $theme):
+		$templateChoises[$theme['name']] = $theme['name'];
+	endforeach;
     $form = $app['form.factory']->createBuilder('form', $data)
-        ->add('Site_Naam')
+	->add('siteName')
+	->add('description', 'textarea')
         ->add('Thema', 'choice', array(
-			'choices' => array('a' => 'b'),
-			'expanded' => false,
-
+		'choices' => $templateChoises,'expanded' => false,
 		))
-        ->add('classes', 'choice', array(
-            'choices' => array('ROLE_ADMIN' => 'admin', 'ROLE_USER' => 'user'),
-            'expanded' => false,
-        ))
         ->getForm();
 
     $form->handleRequest($request);
 
     if ($form->isValid()) {
-        $data = $form->getData();
-		if($app['users']->insertUser($data['username'],$data['password'],$data['classes'])):
-        	return $app->redirect($app['url_generator']->generate('users'));
-		endif;
-		return false;
+	    $data = $form->getData();
+	    $app['settings']->save($data);
+	    return $app->redirect($app['url_generator']->generate('settings'));
     }
 
 
