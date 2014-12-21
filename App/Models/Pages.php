@@ -40,6 +40,32 @@ class Pages{
 
 	}
 
+	/*
+	 *
+	 * Remove an list or a single page
+	 * @param array id, list of id's to remove
+	 * @return void
+	 *
+	 */
+   	 public function remove($id){
+		$i = 1;
+		$sql = 'DELETE FROM pages WHERE id IN (';
+		if(is_array($id)):
+			$count = count($id);
+			for($y = 0; $y < $count; $y++):
+			 	$sql .= ' ?,';
+			endfor;
+			$sql = rtrim($sql, ",").')';
+
+			$stmt = $this->app['db']->prepare($sql);
+			foreach($id as $x):
+				$stmt->bindValue($i, $x);
+				$i++;
+			endforeach;
+		$stmt->execute();
+		endif;
+	}
+
 
 
 	/*

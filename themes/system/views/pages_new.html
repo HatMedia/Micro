@@ -1,0 +1,22 @@
+{% extends "system/views/base.html" %}
+{% block title %}
+	Nieuwe pagina
+{% endblock %}
+{% block main %}
+			<form method="POST" action="#">
+				<div class="heading">
+					<h4>Nieuwe pagian toevoegen</h4>
+					<div class="buttons">
+						<a href="{{ path('pages') }}"><i class="fa fa-arrow-left"></i></a>
+						<a href="{{ path('add_user') }}"><i class="fa fa-refresh"></i></a>
+						<button type="submit"><i class="fa fa-check"></i></button>
+					</div>
+				</div>
+				<div class="contents">
+
+					    {{ form_widget(form) }}
+
+
+				</div>
+			</form>
+{% endblock %}

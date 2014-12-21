@@ -29,9 +29,9 @@ $app['debug'] = true;
 $app['settings'] = $settings;
 $app['config'] = array(
 
-	'url' => 'http://micro.dev/',
+	'url' => $siteUrl,
 	'template' => array(
-		'folder' => 'themes/',
+		'folder' => $templateFolder,
 		'extension' => 'html',
 	),
 	'system' => array(

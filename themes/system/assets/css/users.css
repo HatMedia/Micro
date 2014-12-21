@@ -211,6 +211,7 @@ nav ul li a.active, nav ul li a:hover{
 	padding:20px;
 	font-size:16px;
 }
+/*
 #form div{
 	float:left;
 	width:100%;
@@ -219,6 +220,7 @@ nav ul li a.active, nav ul li a:hover{
 	border-top:1px solid white;
 	border-bottom:1px solid #dbdce2;
 }
+*/
 #form div label{
 	font-family: 'Roboto', sans-serif;
 	font-weight:100;
@@ -304,4 +306,8 @@ nav ul li a.active, nav ul li a:hover{
 #form div:nth-child(3){
 
 	padding-bottom:200px;
+}
+.uk-htmleditor{
+  float:left;
+  width:100%;
 }

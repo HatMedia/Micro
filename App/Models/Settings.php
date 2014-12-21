@@ -3,7 +3,7 @@
 namespace Models;
 
 class Settings{
-	
+
 	private $file;
 	private $settings;
 
@@ -64,6 +64,16 @@ class Settings{
 
 	}
 
+  /*
+   * Gives list of templates inside a theme
+   *
+   * @param string theme the theme to get templates from
+   * @return array of templates
+   */
+    public function getTemplates($theme){
+      $templates = glob($theme);
+
+    }
 
 	/*
 	 * Save the settings to the json file they came from

@@ -14,14 +14,14 @@ $render['admin']['settings'] = function(Request $request) use ($app) {
         'siteName' => $settings->siteName,
         'description' => $settings->description,
     );
-	
+
 	$templateChoises = array();
     	foreach($themes as $theme):
 		$templateChoises[$theme['name']] = $theme['name'];
 	endforeach;
     $form = $app['form.factory']->createBuilder('form', $data)
-	->add('siteName')
-	->add('description', 'textarea')
+      ->add('siteName')
+      ->add('description', 'textarea')
         ->add('Thema', 'choice', array(
 		'choices' => $templateChoises,'expanded' => false,
 		))
@@ -43,11 +43,57 @@ $render['admin']['settings'] = function(Request $request) use ($app) {
 };
 
 /* Temporary placeholder for pages, this will be replaced with the pages routers */
-$render['admin']['pages_remove'] = function() use ($app) { return 'settings'; };
-$render['admin']['pages_add'] = function() use ($app) {
-	return $app['twig']->render('system/views/pages_add.html', array(
+$render['admin']['pages_remove'] = function($id_list) use ($app) {
+
+        $list = array_filter(explode(',',str_replace('_','',$id_list)));
+        $app['pages']->remove($list);
+        return $app->redirect($app['url_generator']->generate('pages'));
+
+
+};
+$render['admin']['pages_add'] = function(Request $request) use ($app) {
+	 $data = array(
+        'username' => 'Username',
+        'password' => 'password',
+    );
+
+    $form = $app['form.factory']->createBuilder('form', $data)
+        ->add('pageName','text',array(
+          'label' => 'Pagina naam'
+        ))
+
+        ->add('pageDescription','textarea',array(
+          'label' => 'Pagina beschrijving'
+        ))
+        ->add('pageTags','text',array(
+          'label' => 'Pagina sleutelwoorden'
+        ))
+       ->add('template', 'choice', array(
+            'choices' => array('ROLE_ADMIN' => 'admin', 'ROLE_USER' => 'user'),
+            'expanded' => false,
+            'label' => 'Pagina vormgeving'
+        ))
+        ->add('pageContent','textarea', array(
+          'label' => 'paginaInhoud',
+          'attr' => array('data-uk-htmleditor'=>'{markdown:true}')
+        ))
+
+        ->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isValid()) {
+        $data = $form->getData();
+		if($app['users']->insertUser($data['username'],$data['password'],$data['classes'])):
+        	return $app->redirect($app['url_generator']->generate('users'));
+		endif;
+		return false;
+    }
+
+
+	return $app['twig']->render('system/views/pages_new.html', array(
 		'path' => $app['config']['system']['template']['path'],
-		'pages' => $app['pages']->getPages()
+		'form' => $form->createView()
 	));
 
 };
